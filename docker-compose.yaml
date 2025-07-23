@@ -1,0 +1,41 @@
+services:
+  app:
+    build:
+      context: .
+    container_name: laravel_app
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+    command: >
+      sh -c "
+        composer install &&
+        cp .env.example .env &&
+        php artisan key:generate &&
+        php artisan session:table &&
+        php artisan migrate &&
+        php artisan serve --host=0.0.0.0 --port=8000 && 
+        php artisan app:fetch-json-placeholder
+      "
+
+  db:
+    image: mysql:8
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: my_tech_exam_db
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: jrmaloc
+      MYSQL_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
