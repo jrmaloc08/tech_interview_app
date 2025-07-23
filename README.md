@@ -16,8 +16,7 @@ This is a Laravel-based RESTful API that fetches and stores data from [JSONPlace
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git https://github.com/jrmaloc08/tech_interview_app.git
 
 ```
 ### 2. Build and start the containers:
