@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
@@ -44,7 +45,7 @@ class FetchJsonPlaceholder extends Command
                 $snakeItem = $this->toSnakeKeys($item);
 
                 if ($endpoint === 'users') {
-                    $snakeItem['password'] = bcrypt('password');
+                    $snakeItem['password'] = Hash::make('password');
                 }
 
                 $modelClass::updateOrCreate(['id' => $item['id']], $snakeItem);
